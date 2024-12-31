@@ -15,3 +15,6 @@ MonoBehaviour:
   lines:
   - Oh death...
   - I can see...
+  voiceovers:
+  - {fileID: 8300000, guid: f6931246abb4fe44586a828482deb36c, type: 3}
+  - {fileID: 8300000, guid: aa57ac00bc22be7459f06c9a1f7ef6df, type: 3}

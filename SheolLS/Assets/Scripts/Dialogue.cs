@@ -4,4 +4,5 @@ using UnityEngine;
 public class Dialogue : ScriptableObject {
     [TextArea(3, 10)]
     public string[] lines;
+    public AudioClip[] voiceovers;
 }
