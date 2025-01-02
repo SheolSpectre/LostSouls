@@ -5,26 +5,24 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    public int vital = 1;
-    [SerializeField] private float speed = 1;
-    [SerializeField] private float visionRange = 5;
-    [SerializeField] private float attackRange = 1;
-    [SerializeField] private int attackDamage = 1;
-    [SerializeField] private float attackCooldown = 1;
-    private float attackTimer = 0f;
-    [SerializeField] private LayerMask playerLayer;
+    public int vitality = 1;
+    private float speed = 1;
+    private float visionRange = 5;
+    private float attackRange = 0.3f;
+    private int attackDamage = 1;
+    private float attackDelay = 0;
     private Transform player;
+    [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Animator animator;
-    [SerializeField] private Transform attackPos;
     private enum State { Idle, Chasing, Attacking };
     private State currentState = State.Idle;
     private void Update() {
-        if (vital <= 0) {
+        if (vitality <= 0) {
             Destroy(gameObject);
         }
-        attackTimer -= Time.deltaTime;
+        attackDelay -= Time.deltaTime;
         Collider2D playerInVision = Physics2D.OverlapCircle(transform.position, visionRange, playerLayer);
-        Collider2D playerInAttack = Physics2D.OverlapCircle(attackPos.position, attackRange, playerLayer);
+        Collider2D playerInAttack = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
         if (playerInAttack != null) {
             currentState = State.Attacking;
         } else if (playerInVision != null) {
@@ -55,18 +53,17 @@ public class Enemy : MonoBehaviour {
         }
         transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
     }
-    private async void AttackPlayer(Transform playerTransform){
-        if (attackTimer <= 0f) {
+    private void AttackPlayer(Transform playerTransform){
+        if (attackDelay <= 0f) {
             animator.SetTrigger("Attack");
-            attackTimer = attackCooldown;
-            playerTransform.GetComponent<Player>().vital -= attackDamage;
+            attackDelay = 1;
+            playerTransform.GetComponent<Player>().vitality -= attackDamage;
         }
-        await Task.Delay(1000);
     }
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

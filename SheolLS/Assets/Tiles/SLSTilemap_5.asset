@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SheolTilemap_3
+  m_Name: SLSTilemap_5
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -361642846, guid: a6fad12136da697459ac80799250f1af, type: 3}
+  m_Sprite: {fileID: -1384908821, guid: bf3464a6b0be7264f87e703ebd8ba0d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

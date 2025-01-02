@@ -4,15 +4,14 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    [SerializeField] private float speed = 2f;
+    private float speed = 2;
     private float horizontal;
     private bool facingRight = true;
     private bool attacking = false;
     private int attackDamage = 1;
-    [SerializeField] private float attackDelay = 1f;
-    [SerializeField] private float attackRange = 0.5f;
-    public int vital = 3;
-    public int souls = 0;
+    private float attackDelay = 1;
+    private float attackRange = 0.5f;
+    public int vitality = 3;
     public bool isTalking = false;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -39,13 +38,13 @@ public class Player : MonoBehaviour {
             for (int i = 0; i < enemiesToAttack.Length; i++) {
                 var enemy = enemiesToAttack[i].GetComponent<Enemy>();
                 if (enemy != null) {
-                    enemy.vital  -= attackDamage;
+                    enemy.vitality -= attackDamage;
                 }
             }
             await Task.Delay(500);
             attacking = false;
         }
-        if (vital <= 0) {
+        if (vitality <= 0) {
             Destroy(gameObject);
         }
     }
